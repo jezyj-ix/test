@@ -1,0 +1,45 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "ApimServiceName": {
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "properties": {
+        "description": "IX api",
+        "type": "http",
+        "apiVersion": "V1",
+        "isCurrent": true,
+        "apiVersionDescription": "IX API version 1",
+        "apiVersionSetId": "[resourceId('Microsoft.ApiManagement/service/apiVersionSets', parameters('ApimServiceName'), 'ixApi')]",
+        "subscriptionRequired": false,
+        "displayName": "ix-api",
+        "serviceUrl": "https://inxn-p1-ixapi-func.azurewebsites.net/api/v1",
+        "path": "ixapi",
+        "protocols": [
+          "https"
+        ],
+        "apiType": "http"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/ix-api')]",
+      "type": "Microsoft.ApiManagement/service/apis",
+      "apiVersion": "2019-01-01",
+      "dependsOn": []
+    },
+    {
+      "properties": {
+        "value": "<policies>\r\n    <inbound>\r\n        <ip-filter action=\"allow\">\r\n            <address-range from=\"194.153.74.0\" to=\"194.153.74.255\" />\r\n            <address-range from=\"147.243.0.0\" to=\"147.243.255.255\" />\r\n            <address-range from=\"2a01:0111:2050:0000:0000:0000:0000:0000\" to=\"2a01:0111:205f:ffff:ffff:ffff:ffff:ffff\" />\r\n        </ip-filter>\r\n        <cors allow-credentials=\"true\">\r\n            <allowed-origins>\r\n                <origin>https://connect.interxion.com</origin>\r\n            </allowed-origins>\r\n            <allowed-methods>\r\n                <method>GET</method>\r\n                <method>POST</method>\r\n                <method>PUT</method>\r\n                <method>DELETE</method>\r\n                <method>PATCH</method>\r\n                <method>OPTIONS</method>\r\n            </allowed-methods>\r\n            <allowed-headers>\r\n                <header>content-type</header>\r\n                <header>accept</header>\r\n                <header>authorization</header>\r\n            </allowed-headers>\r\n        </cors>\r\n    </inbound>\r\n    <backend>\r\n        <forward-request />\r\n    </backend>\r\n    <outbound>\r\n        <set-header name=\"Access-Control-Allow-Origin\" exists-action=\"override\">\r\n            <value>https://connect.interxion.com</value>\r\n        </set-header>\r\n        <set-header name=\"Access-Control-Allow-Credentials\" exists-action=\"override\">\r\n            <value>true</value>\r\n        </set-header>\r\n    </outbound>\r\n    <on-error />\r\n</policies>",
+        "format": "rawxml"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/ix-api/policy')]",
+      "type": "Microsoft.ApiManagement/service/apis/policies",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'ix-api')]"
+      ]
+    }
+  ]
+}
