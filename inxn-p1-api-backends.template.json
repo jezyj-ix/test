@@ -1,0 +1,23 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "ApimServiceName": {
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "properties": {
+        "title": "inxn-p1-ixapi-func",
+        "description": "Function apps deployed in Azure",
+        "url": "https://inxn-p1-ixapi-func.azurewebsites.net/api/v2",
+        "protocol": "http"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/inxn-p1-ixapi-func')]",
+      "type": "Microsoft.ApiManagement/service/backends",
+      "apiVersion": "2019-01-01",
+      "dependsOn": []
+    }
+  ]
+}
