@@ -16,7 +16,9 @@
       "name": "[concat(parameters('ApimServiceName'), '/ix-api')]",
       "type": "Microsoft.ApiManagement/service/apis",
       "apiVersion": "2019-01-01",
-      "dependsOn": []
+      "dependsOn": [
+		"[resourceId('Microsoft.ApiManagement/service/apiVersionSets', parameters('ApimServiceName'), 'ixApi')]"
+	  ]
     }
   ]
 }
