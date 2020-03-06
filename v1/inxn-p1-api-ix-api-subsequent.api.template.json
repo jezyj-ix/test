@@ -13,6 +13,10 @@
         "type": "http",
         "subscriptionRequired": false,
         "displayName": "ix-api-v1",
+		"apiVersion": "V1",
+        "isCurrent": true,
+        "apiVersionDescription": "IX API version 1",
+        "apiVersionSetId": "[resourceId('Microsoft.ApiManagement/service/apiVersionSets', parameters('ApimServiceName'), 'ixApi')]",
         "serviceUrl": "https://inxn-p1-ixapi-func.azurewebsites.net/api/v1",
         "path": "ixapi",
         "protocols": [
