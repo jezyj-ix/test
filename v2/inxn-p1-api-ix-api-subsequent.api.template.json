@@ -11,10 +11,6 @@
       "properties": {
         "description": "IX api",
         "type": "http",
-        "apiVersion": "V2",
-        "isCurrent": true,
-        "apiVersionDescription": "IX API version 2",
-        "apiVersionSetId": "[resourceId('Microsoft.ApiManagement/service/apiVersionSets', parameters('ApimServiceName'), 'ixApi')]",
         "subscriptionRequired": false,
         "displayName": "ix-api-v2",
         "serviceUrl": "https://inxn-p1-ixapi-func.azurewebsites.net/api/v2",
